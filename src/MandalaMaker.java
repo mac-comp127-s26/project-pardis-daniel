@@ -9,40 +9,60 @@ import java.awt.Color;
 
 public class MandalaMaker {
     private Brush currentBrush = new LineBrush();
-    private CanvasWindow canvas;
-    private GraphicsGroup paintLayer;
+
+    private final MandalaCanvas surface;
+    private final MandalaLayer mandalaLayer;
 
     private final PaintSettingsView paintSettingsView;
     private final List<Brush> availableBrushes = List.of(new Eraser(),
                                                         new LineBrush());
 
     public MandalaMaker() {
-        canvas = new CanvasWindow("Painter", 900, 800);
+        this(new CanvasWindow("Mandala Maker", 800, 800));
+        }
 
-        paintLayer = new GraphicsGroup();
-        canvas.add(paintLayer);
+    public MandalaMaker(CanvasWindow window) {
+        this(new MandalaCanvas(window));
+    }
+
+    public MandalaMaker(GraphicsGroup group, double width, double height) {
+        this(new MandalaCanvas(group, width, height));
+    }
+
+    private MandalaMaker(MandalaCanvas surface) {
+        this.surface = surface;
+
+        GraphicsGroup paintGroup = new GraphicsGroup();
+        surface.add(paintGroup);
+
+        double cx = surface.getWidth() / 2.0;
+        double cy = surface.getHeight() / 2.0;
+        mandalaLayer = new MandalaLayer(paintGroup, cx, cy);
 
         paintSettingsView = new PaintSettingsView(Color.BLUE, 60);
-        canvas.add(paintSettingsView, 10 - paintSettingsView.getBounds().getMinX(), 10);
+        surface.add(paintSettingsView,
+            10 - paintSettingsView.getBounds().getMinX(), 10);
 
-        canvas.onMouseDown(event -> paint(event.getPosition()));
-        canvas.onDrag(event -> paint(event.getPosition()));
-
-        double y = 300; 
-        for (Brush brush: availableBrushes) {
+        double y = 300;
+        for (Brush brush : availableBrushes) {
             addBrushButton(brush, y);
             y += 50;
+        }
+
+        if (surface.getWindow() != null) {
+            surface.getWindow().onMouseDown(event -> paint(event.getPosition()));
+            surface.getWindow().onDrag(event -> paint(event.getPosition()));
         }
     }
 
     private void paint(Point location) {
-        currentBrush.apply(paintLayer, paintSettingsView, location);
+        mandalaLayer.applyBrush(currentBrush, paintSettingsView, location);
     }
 
     private void addBrushButton(Brush brush, double y) {
         Button button = new Button(brush.getName());
         button.setPosition(10, y);
-        canvas.add(button);
+        surface.add(button);
         button.onClick(() -> currentBrush = brush);
     }
 

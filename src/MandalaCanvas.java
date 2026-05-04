@@ -1,8 +1,3 @@
-import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.GraphicsObject;
-import edu.macalester.graphics.GraphicsGroup;
-import edu.macalester.graphics.Point;
-
 public class MandalaCanvas {
     private final double width;
     private final double height;

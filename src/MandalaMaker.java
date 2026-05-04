@@ -47,7 +47,6 @@ public class MandalaMaker {
         paintGroup.setPosition(PAINT_AREA_X, 0);
         canvasWindow.add(paintGroup);
 
-        double paintAreaWidth = surface.getWidth() - TOOLS_PANEL_WIDTH;
         double cx = PAINT_AREA_WIDTH / 2; 
         double cy = 10 + (PAINT_AREA_HEIGHT / 2.0);
         mandalaLayer = new MandalaLayer(paintGroup, cx, cy, surface);

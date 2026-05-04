@@ -1,95 +1,68 @@
 import edu.macalester.graphics.GraphicsGroup;
-import edu.macalester.graphics.GraphicsObject;
-import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.Rectangle;
-import edu.macalester.graphics.ui.TextField;
+import edu.macalester.graphics.CanvasWindow;
 
 import java.awt.Color;
-import java.util.function.Consumer;
+
 
 public class PaintSettingsView extends GraphicsGroup {
     private Color color;
     private int radius;
+    private final Rectangle colorDisplay;
+    private final ColorSlider redSlider;
+    private final ColorSlider greenSlider;
+    private final ColorSlider blueSlider;
+    private final ColorSlider sizeSlider;
 
-    private Rectangle colorDisplay;
-    private TextField redField, greenField, blueField, sizeField;
+    private static final double DISPLAY_HEIGHT_RATIO = 0.25;
+    private static final double GAP_RATIO = 0.02;
+    private static final int MAX_BRUSH_SIZE = 100;
 
-    public PaintSettingsView(Color initialColor, int initialSize) {
-        colorDisplay = new Rectangle(0, 0, 100, 100);
+    public PaintSettingsView(Color initialColor, int initialSize, double width, double height, CanvasWindow canvas) {
+        double gapH = height * GAP_RATIO;
+        double displayH = height * DISPLAY_HEIGHT_RATIO;
+        double slidersH = height - displayH - gapH * 5;
+        double sliderH = slidersH / 4.0;
+
+        colorDisplay = new Rectangle(0, 0, width, displayH);
         add(colorDisplay);
 
-        redField = addComponentField("Red", colorDisplay, 8);
-        greenField = addComponentField("Green", redField, 4);
-        blueField = addComponentField("Blue", greenField, 4);
+        double y = displayH + gapH;
 
-        redField  .onChange((text) -> updateColorFromField(0, redField));
-        greenField.onChange((text) -> updateColorFromField(1, greenField));
-        blueField .onChange((text) -> updateColorFromField(2, blueField));
+        redSlider = new ColorSlider("R", 0, 255, initialColor.getRed(), width, sliderH, canvas, this);
+        greenSlider = new ColorSlider("G", 0, 255, initialColor.getGreen(), width, sliderH, canvas, this);
+        blueSlider = new ColorSlider("B", 0, 255, initialColor.getBlue(), width, sliderH, canvas, this);
+        sizeSlider = new ColorSlider("Size", 1, MAX_BRUSH_SIZE, initialSize, width, sliderH, canvas, this);
 
-        sizeField = addComponentField("Size", blueField, 16);
-        sizeField.onChange((text) -> updateBrushSizeFromField());
-        sizeField.setText(String.valueOf(initialSize));
+        ColorSlider[] sliders = { redSlider, greenSlider, blueSlider, sizeSlider };
+        for (ColorSlider slider : sliders) {
+            slider.setPosition(0, y);
+            add(slider);
+            y += sliderH + gapH;
+        }
 
+        this.radius = initialSize;
         setColor(initialColor);
-        radius = initialSize;
     }
 
-    private TextField addComponentField(String label, GraphicsObject positionAfter, int margin) {
-        double y = positionAfter.getBoundsInParent().getMaxY() + margin;
+    public void updateFromSliders() {
+        this.radius = (int) Math.round(sizeSlider.getValue());
+        int r = (int) redSlider.getValue();
+        int g = (int) greenSlider.getValue();
+        int b = (int) blueSlider.getValue();
+        this.color = new Color(r, g, b);
+        colorDisplay.setFillColor(this.color);
+    }
 
-        GraphicsText labelGraphics = new GraphicsText(label);
-        labelGraphics.setPosition(-labelGraphics.getWidth() - 5, y);
-        add(labelGraphics);
-
-        TextField field = new TextField();
-        field.setPosition(0, y);
-        add(field);
-
-        labelGraphics.setCenter(labelGraphics.getCenter().getX(), field.getCenter().getY());
-        return field;
+    public void setColor(Color color) {
+        this.color = color;
+        colorDisplay.setFillColor(color);
+        redSlider.setValue(color.getRed());
+        greenSlider.setValue(color.getGreen());
+        blueSlider.setValue(color.getBlue());
     }
 
     public BrushOptions getBrushOptions() {
         return new BrushOptions(color, radius);
-    }
-
-    public void setColor(Color color) {
-        setColorWithoutFields(color);
-        updateComponentField(redField,   color.getRed());
-        updateComponentField(greenField, color.getGreen());
-        updateComponentField(blueField,  color.getBlue());
-    }
-
-    private void updateComponentField(TextField field, int value) {
-        field.setText(String.valueOf(value));
-    }
-
-    private void setColorWithoutFields(Color color) {
-        this.color = color;
-        colorDisplay.setFillColor(color);
-    }
-
-    private void updateColorFromField(int index, TextField field) {
-        float[] components = color.getRGBColorComponents(null);
-        readIntField(field, (newValue) -> {
-            components[index] = Math.max(0, Math.min(1, newValue / 255.0f));
-            setColorWithoutFields(new Color(components[0], components[1], components[2]));
-        });
-    }
-
-    private void updateBrushSizeFromField() {
-        readIntField(sizeField, (newSize) ->
-            radius = Math.max(0, newSize));
-    }
-
-    private void readIntField(TextField field, Consumer<Integer> updateAction) {
-        try {
-            updateAction.accept(
-                Integer.parseInt(
-                    field.getText()));
-            field.setBackground(Color.WHITE);
-        } catch (NumberFormatException e) {
-            field.setBackground(new Color(0xFFCCCC));
-        }
     }
 }

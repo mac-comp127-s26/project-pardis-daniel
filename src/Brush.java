@@ -7,4 +7,8 @@ public interface Brush {
 
     public String getName();
 
+    String getImagePath();
+
+    Point getImagePosition();
+
 }

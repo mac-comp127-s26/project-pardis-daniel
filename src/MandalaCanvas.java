@@ -1,43 +1,25 @@
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.GraphicsGroup;
+import edu.macalester.graphics.Point;
 
 public class MandalaCanvas {
-    private final CanvasWindow window;
-    private final GraphicsGroup group;
     private final double width;
     private final double height;
-
-    public MandalaCanvas(CanvasWindow window) {
-        this.window = window;
-        this.group = null;
-        this.width = window.getWidth();
-        this.height = window.getHeight();
-    }
-
+    private AxisMode axisMode;
     
-    public MandalaCanvas(GraphicsGroup group, double width, double height) {
-        this.window = null;
-        this.group = group;
+    public MandalaCanvas(double width, double height, AxisMode axisMode) {
         this.width = width;
         this.height = height;
+        this.axisMode = axisMode;
     }
 
-    public void add(GraphicsObject object) {
-        if (window != null) {
-            window.add(object);
-        } else {
-            group.add(object);
-        }
+    public void setAxisMode(AxisMode axisMode) {
+        this.axisMode = axisMode;
     }
 
-    public void add(GraphicsObject object, double x, double y) {
-        if (window != null) {
-            window.add(object, x, y);
-        } else {
-            object.setPosition(x, y);
-            group.add(object);
-        }
+    public AxisMode getAxisMode() {
+        return axisMode;
     }
 
     public double getWidth() {
@@ -48,7 +30,4 @@ public class MandalaCanvas {
         return height;
     }
 
-    public CanvasWindow getWindow() {
-        return window;
-    }
 }

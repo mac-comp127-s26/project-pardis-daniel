@@ -2,7 +2,7 @@ import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Point;
 
-public class LineBrush implements Brush {
+public class SprayBrush implements Brush {
 
     public void apply(GraphicsGroup paintLayer, PaintSettingsView paintSettingsView, Point location) {
         BrushOptions brushOptions = paintSettingsView.getBrushOptions();
@@ -12,8 +12,19 @@ public class LineBrush implements Brush {
         paintLayer.add(dot);
     }
 
+    @Override
         public String getName() {
         return "Spray Paint";
+    }
+
+    @Override
+    public String getImagePath() {
+        return "brushes/sprayPaint.png"; 
+    }
+
+    @Override
+    public Point getImagePosition() {
+        return new Point(10, 300);
     }
 
 }

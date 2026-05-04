@@ -10,6 +10,7 @@ public class MandalaLayer {
     private final GraphicsGroup layer;
     private final double centerX;
     private final double centerY;
+    private MandalaCanvas mandalaCanvas;
 
     /***
      * 
@@ -17,24 +18,17 @@ public class MandalaLayer {
      * @param centerX
      * @param centerY
      */
-    public MandalaLayer(GraphicsGroup layer, double centerX, double centerY) {
+    public MandalaLayer(GraphicsGroup layer, double centerX, double centerY, MandalaCanvas mandalaCanvas) {
         this.layer = layer;
         this.centerX = centerX;
         this.centerY = centerY;
+        this.mandalaCanvas = mandalaCanvas;
     }
 
     public void applyBrush(Brush brush, PaintSettingsView paintSettingsView, Point canvasPoint) {
         double dx = canvasPoint.getX() - centerX;
         double dy = canvasPoint.getY() - centerY;
-
-        applyBrushReflection(brush, paintSettingsView, dx, dy);
-        applyBrushReflection(brush, paintSettingsView, dx, -dy);
-        applyBrushReflection(brush, paintSettingsView, -dx, dy);
-        applyBrushReflection(brush, paintSettingsView, -dx, -dy);
-    }
-
-    private void applyBrushReflection(Brush brush, PaintSettingsView paintSettingsView, double dx, double dy) {
-        brush.apply(layer, paintSettingsView, new Point(centerX + dx, centerY + dy));
+        mandalaCanvas.getAxisMode().applyReflections(brush, paintSettingsView, layer, centerX, centerY, dx, dy);
     }
 
     public GraphicsGroup getLayer() {

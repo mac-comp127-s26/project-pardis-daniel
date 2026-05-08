@@ -1,3 +1,5 @@
+import AxisSystem.AxisMode;
+
 public class MandalaCanvas {
     private final double width;
     private final double height;

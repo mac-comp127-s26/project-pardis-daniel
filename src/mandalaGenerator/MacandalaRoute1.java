@@ -10,7 +10,7 @@ public class MacandalaRoute1 {
     private static final int CANVAS_SIZE = 800;
 
     public static void main(String[] args) {
-        int inputNumber = 400;
+        int inputNumber = 3;
 
         CanvasWindow canvas = new CanvasWindow("Mandala Generator", CANVAS_SIZE, CANVAS_SIZE);
         MandalaSetup setup = new MandalaSetup(inputNumber, CANVAS_SIZE);

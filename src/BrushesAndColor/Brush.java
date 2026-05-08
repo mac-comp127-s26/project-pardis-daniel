@@ -1,3 +1,4 @@
+package BrushesAndColor;
 import edu.macalester.graphics.Point;
 import edu.macalester.graphics.GraphicsGroup;
 

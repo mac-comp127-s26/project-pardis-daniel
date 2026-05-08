@@ -1,3 +1,4 @@
+package BrushesAndColor;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsGroup;

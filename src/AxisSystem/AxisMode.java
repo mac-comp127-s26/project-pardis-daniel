@@ -1,3 +1,6 @@
+package AxisSystem;
+import BrushesAndColor.Brush;
+import BrushesAndColor.PaintSettingsView;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
 

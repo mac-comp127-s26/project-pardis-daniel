@@ -1,12 +1,17 @@
+import java.awt.Color;
+import java.util.List;
+
+import AxisSystem.AxisMode;
+import AxisSystem.CrossAxis;
+import AxisSystem.DiagonalAxis;
+import AxisSystem.MirrorAxis;
+import BrushesAndColor.*;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Image;
 import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.ui.Button;
-
-import java.awt.Color;
-import java.util.List;
 
 
 public class MandalaMaker {
@@ -18,27 +23,41 @@ public class MandalaMaker {
     private final PaintSettingsView paintSettingsView;
     private final List<Brush> availableBrushes = List.of(new Eraser(),
                                                         new SprayBrush(),
-                                                        new HighlandCowBrush());
+                                                        new HighlandCowBrush(),
+                                                        new CircleBrush(),
+                                                        new SquareBrush(),
+                                                        new PenBrush(),
+                                                        new PencilBrush(),
+                                                        new Bucket(),
+                                                        new StrokeBucket());
 
     private static final double TOOLS_PANEL_WIDTH  = 220;
-    private static final int WINDOW_WIDTH = 1024;
-    private static final int WINDOW_HEIGHT = 800;
 
     private static final double PAINT_AREA_X = TOOLS_PANEL_WIDTH + 10;
-    private static final double PAINT_AREA_WIDTH = WINDOW_WIDTH - PAINT_AREA_X - 10;
-    private static final double PAINT_AREA_HEIGHT = WINDOW_HEIGHT - 20;
 
     private static final Point POS_CROSS = new Point(10, 500);
     private static final Point POS_MIRROR = new Point(10, 550);
     private static final Point POS_STAR = new Point(10, 600);
     private static final Point POS_SAVE = new Point(10, 660);
     private static final Point POS_CLEAR = new Point(10, 710);
+    private static final Point POS_HOME   = new Point(10, 760);
 
-    private MandalaMaker(CanvasWindow canvasWindow, MandalaCanvas surface) {
+    public MandalaMaker(CanvasWindow canvasWindow, MandalaCanvas surface) {
         this.canvasWindow = canvasWindow;
         this.surface = surface;
 
-        Rectangle clipBorder = new Rectangle(PAINT_AREA_X, 10, PAINT_AREA_WIDTH, PAINT_AREA_HEIGHT);
+       
+        Image background = new Image("background/secondaryBackground.png");
+        background.setMaxWidth(canvasWindow.getWidth());
+        background.setPosition(0, 0);
+        canvasWindow.add(background);
+
+        double windowWidth  = canvasWindow.getWidth();
+        double windowHeight = canvasWindow.getHeight();
+        double paintAreaWidth  = windowWidth  - PAINT_AREA_X - 10;
+        double paintAreaHeight = windowHeight - 20;
+
+        Rectangle clipBorder = new Rectangle(PAINT_AREA_X, 10, paintAreaWidth, paintAreaHeight);
         clipBorder.setFillColor(Color.WHITE);
         clipBorder.setStrokeColor(Color.LIGHT_GRAY);
         canvasWindow.add(clipBorder);
@@ -47,8 +66,8 @@ public class MandalaMaker {
         paintGroup.setPosition(PAINT_AREA_X, 0);
         canvasWindow.add(paintGroup);
 
-        double cx = PAINT_AREA_WIDTH / 2; 
-        double cy = 10 + (PAINT_AREA_HEIGHT / 2.0);
+        double cx = paintAreaWidth / 2; 
+        double cy = 10 + (paintAreaHeight / 2.0);
         mandalaLayer = new MandalaLayer(paintGroup, cx, cy, surface);
 
         paintSettingsView = new PaintSettingsView(Color.BLUE, 10, 200, 300, canvasWindow);
@@ -63,20 +82,21 @@ public class MandalaMaker {
         addAxisButton(new DiagonalAxis(),   POS_STAR);
         addSaveButton(POS_SAVE);
         addClearButton(POS_CLEAR, paintGroup);
+        addHomeButton(POS_HOME);
 
-        canvasWindow.onMouseDown(event -> paint(event.getPosition()));
-        canvasWindow.onDrag(event -> paint(event.getPosition()));
+        canvasWindow.onMouseDown(event -> paint(event.getPosition(), paintAreaWidth, paintAreaHeight));
+        canvasWindow.onDrag(event -> paint(event.getPosition(), paintAreaWidth, paintAreaHeight));
     }
 
-    private void paint(Point location) {
+    private void paint(Point location, double paintAreaWidth, double paintAreaHeight) {
         double lx = location.getX();
         double ly = location.getY();
         double radius = paintSettingsView.getBrushOptions().getRadius();
 
-        if (lx < PAINT_AREA_X + radius || lx > PAINT_AREA_X + PAINT_AREA_WIDTH - radius) {
+        if (lx < PAINT_AREA_X + radius || lx > PAINT_AREA_X + paintAreaWidth - radius) {
             return;
         }
-        if (ly < 10 + radius || ly > 10 + PAINT_AREA_HEIGHT - radius) {
+        if (ly < 10 + radius || ly > 10 + paintAreaHeight - radius) {
             return;
         }
 
@@ -126,9 +146,13 @@ public class MandalaMaker {
         });
 }
 
-    public static void main(String[] args) {
-        CanvasWindow window  = new CanvasWindow("Mandala Maker", WINDOW_WIDTH, WINDOW_HEIGHT);
-        MandalaCanvas canvas = new MandalaCanvas(window.getWidth(), window.getHeight(), new CrossAxis());
-        new MandalaMaker(window, canvas);
+    private void addHomeButton(Point position) {
+        Button homeButton = new Button("Home");
+        homeButton.setPosition(position);
+        canvasWindow.add(homeButton);
+        homeButton.onClick(() -> {
+            canvasWindow.removeAll();
+            new MainScreen(canvasWindow);
+        });
     }
 }

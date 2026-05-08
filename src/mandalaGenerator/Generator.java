@@ -80,9 +80,9 @@ public class Generator {
 
         for (int i = 0; i < centerRings; i++) {
             double size = INITIAL_CENTER_RING_SIZE * i;
-            double coorinates = center - size / 2;
+            double coordinates = center - size / 2;
 
-            Ellipse circle = new Ellipse(coorinates, coorinates, size, size);
+            Ellipse circle = new Ellipse(coordinates, coordinates, size, size);
 
             circle.setStrokeWidth(randomStrokeWidth());
 

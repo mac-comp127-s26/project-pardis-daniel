@@ -1,3 +1,5 @@
+package BrushesAndColor;
+
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Point;
@@ -24,7 +26,7 @@ public class SprayBrush implements Brush {
 
     @Override
     public Point getImagePosition() {
-        return new Point(10, 300);
+        return new Point(10, 320);
     }
 
 }

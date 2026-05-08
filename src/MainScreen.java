@@ -38,7 +38,8 @@ public class MainScreen {
         });
 
         autoButton.onClick(() -> {
-            // to-do
+            window.removeAll();
+            new InputScreen(window);
         });
 
         window.add(group);

@@ -5,7 +5,7 @@ import AxisSystem.AxisMode;
 import AxisSystem.CrossAxis;
 import AxisSystem.DiagonalAxis;
 import AxisSystem.MirrorAxis;
-import BrushesAndColor.*;
+import BrushesAndSlider.*;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Image;

@@ -1,5 +1,5 @@
-import BrushesAndColor.Brush;
-import BrushesAndColor.PaintSettingsView;
+import BrushesAndSlider.Brush;
+import BrushesAndSlider.PaintSettingsView;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
 

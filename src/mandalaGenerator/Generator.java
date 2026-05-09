@@ -2,10 +2,12 @@ package mandalaGenerator;
 
 import java.util.List;
 import java.util.Random;
+import java.awt.Color;
 
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;
+import edu.macalester.graphics.Rectangle;
 
 /**
  * Uses the setup specifies to generate a mandala with concentric layers of geometric shapes.
@@ -38,9 +40,9 @@ public class Generator {
     public GraphicsGroup generate() {
         GraphicsGroup mandala = new GraphicsGroup();
 
-        addLayers(mandala);
-        addCenterCircles(mandala);
         addBorder(mandala);
+        addCenterCircles(mandala);
+        addLayers(mandala);
 
         return mandala;
     }

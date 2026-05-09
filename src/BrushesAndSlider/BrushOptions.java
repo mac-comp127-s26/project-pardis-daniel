@@ -1,4 +1,4 @@
-package BrushesAndColor;
+package BrushesAndSlider;
 import java.awt.Color;
 
 /**

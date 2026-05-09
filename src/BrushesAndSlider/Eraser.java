@@ -1,45 +1,44 @@
-package BrushesAndColor;
+package BrushesAndSlider;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Iterator;
-import java.awt.Color;
 
-import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Point;
-import edu.macalester.graphics.Rectangle;
 
-public class StrokeBucket implements Brush {
+public class Eraser implements Brush {
     public void apply(GraphicsGroup paintLayer, PaintSettingsView paintSettingsView, Point location) {
         double radius = paintSettingsView.getBrushOptions().getRadius();
-        Color color = paintSettingsView.getBrushOptions().getColor();
 
+        List<GraphicsObject> toRemove = new ArrayList<>();
         Iterator<GraphicsObject> iter = paintLayer.iterator();
         while (iter.hasNext()) {
             GraphicsObject obj = iter.next();
             Point center = obj.getCenter();
             double dist = Math.hypot(center.getX() - location.getX(), center.getY() - location.getY());
             if (dist <= radius) {
-                if (obj instanceof Ellipse ellipse) {
-                    ellipse.setStrokeColor(color);
-                } else if (obj instanceof Rectangle rectangle) {
-                    rectangle.setStrokeColor(color);
-                }
+                toRemove.add(obj);
             }
+        }
+        for (GraphicsObject obj : toRemove) {
+            paintLayer.remove(obj);
         }
     }
 
+
     @Override
     public String getName() {
-        return "Stroke Bucket";
+        return "Eraser";
     }
 
     @Override
     public String getImagePath() {
-        return "brushes/strokeBucket.png"; 
+        return "brushes/eraser.png"; 
     }
 
     @Override
     public Point getImagePosition() {
-        return new Point(145, 445); 
+        return new Point(10, 390); 
     }
 }

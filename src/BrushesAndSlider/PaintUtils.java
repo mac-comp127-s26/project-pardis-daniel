@@ -1,4 +1,4 @@
-package BrushesAndColor;
+package BrushesAndSlider;
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsObject;
 

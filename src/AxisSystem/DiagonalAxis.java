@@ -1,6 +1,6 @@
 package AxisSystem;
-import BrushesAndColor.Brush;
-import BrushesAndColor.PaintSettingsView;
+import BrushesAndSlider.Brush;
+import BrushesAndSlider.PaintSettingsView;
 import edu.macalester.graphics.GraphicsGroup;
 
 public class DiagonalAxis extends CrossAxis {

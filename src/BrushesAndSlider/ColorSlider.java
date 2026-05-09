@@ -1,4 +1,4 @@
-package BrushesAndColor;
+package BrushesAndSlider;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsGroup;
@@ -45,6 +45,7 @@ public class ColorSlider extends GraphicsGroup {
 
         GraphicsText labelText = new GraphicsText(label + ":");
         labelText.setPosition(0, height / 2.0 + labelText.getHeight() * 0.3);
+        labelText.setFillColor(Color.WHITE);
         add(labelText);
 
         track = new Rectangle(trackX, trackY, trackW, trackH);
@@ -53,7 +54,7 @@ public class ColorSlider extends GraphicsGroup {
         add(track);
 
         handle = new Ellipse(0, 0, handleDiam, handleDiam);
-        handle.setFillColor(Color.DARK_GRAY);
+        handle.setFillColor(Color.WHITE);
         handle.setStroked(false);
         add(handle);
 
@@ -100,6 +101,9 @@ public class ColorSlider extends GraphicsGroup {
     }
 
     private Point toLocal(Point global) {
-        return new Point(global.getX() - getX(), global.getY() - getY());
+        return new Point(
+        global.getX() - parent.getX() - getX(),
+        global.getY() - parent.getY() - getY()
+    );
     }
 }

@@ -1,3 +1,10 @@
+import mandalaGenerator.Generator;
+import mandalaGenerator.MandalaSetup;
+import brushesAndSlider.Brush;
+import brushesAndSlider.Bucket;
+import brushesAndSlider.PaintSettingsView;
+import brushesAndSlider.StrokeBucket;
+
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsGroup;
@@ -9,22 +16,14 @@ import edu.macalester.graphics.Path;
 import edu.macalester.graphics.ui.Button;
 import edu.macalester.graphics.ui.TextField;
 
-
-import mandalaGenerator.Generator;
-import mandalaGenerator.MandalaSetup;
-
 import java.awt.Color;
 import java.util.List;
 import java.util.Iterator;
 
-import BrushesAndSlider.Brush;
-import BrushesAndSlider.Bucket;
-import BrushesAndSlider.PaintSettingsView;
-import BrushesAndSlider.StrokeBucket;
-
 /**
- * Screen for generating a mandala. Displays an input field for the user to enter a number, then
- * generates and displays the corresponding mandala.
+ * @author Pardis Roham
+ * Screen for generating a mandala. Displays an input field for the user to enter a number,
+ * then generates and displays the corresponding mandala.
  */
 public class InputScreen {
     private final CanvasWindow canvas;
@@ -122,6 +121,12 @@ public class InputScreen {
     }
 
     // Helper methods
+
+    /**
+     * Adds a button that screenshots the screen if clicked
+     * Screenshots are saved in the main project folder
+     * @param position
+     */
     private void addSaveButton(Point position) {
         Button saveButton = new Button("Save Mandala");
         saveButton.setPosition(position);
@@ -129,22 +134,33 @@ public class InputScreen {
         saveButton.onClick(() -> saveMandala());
     }
 
+    /**
+     * Takes a screenshot of the window
+     */
     private void saveMandala() {
         new Thread(() -> {
             canvas.screenShot("mandala.png");
         }).start();
     }
 
+    /**
+     * Adds a home button that returns the user to the main screen
+     * @param position
+     */
     private void addHomeButton(Point position) {
         Button homeButton = new Button("Home");
         homeButton.setPosition(position);
         canvas.add(homeButton);
         homeButton.onClick(() -> {
             canvas.removeAll();
-            new MainScreen(canvas);
+            new HomeScreen(canvas);
         });
     }
 
+    /**
+     * Adds bucket tools and clearing button that returns the mandala generated to its original state
+     * @param mandala Graphics group that holds the generated mandala
+     */
     private void addBucketControls(GraphicsGroup mandala) {
         List<Brush> bucketBrushes = List.of(new Bucket(), new StrokeBucket());
 
@@ -169,7 +185,6 @@ public class InputScreen {
             if (ex < mandala.getX() || ex > mandala.getX() + mandala.getWidth()) {
                 return;
             }
-
             if (ey < mandala.getY() || ey > mandala.getY() + mandala.getHeight()) {
                 return;
             }
@@ -187,14 +202,15 @@ public class InputScreen {
                 GraphicsObject obj = iter.next();
                 if (obj instanceof Ellipse ellipse) {
                     ellipse.setFillColor(new Color(0, 0, 0, 0));
+                    ellipse.setStrokeColor(Color.BLACK);
                 } else if (obj instanceof Path path) {
                     path.setFillColor(new Color(0, 0, 0, 0));
+                    path.setStrokeColor(Color.BLACK);
                 } else if (obj instanceof Rectangle rectangle) {
                     rectangle.setFillColor(new Color(0, 0, 0, 0));
+                    rectangle.setStrokeColor(Color.BLACK);
                 }
             }
-
         });
-
     }
 }

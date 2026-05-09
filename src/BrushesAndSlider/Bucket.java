@@ -1,6 +1,4 @@
-package BrushesAndSlider;
-import java.util.Iterator;
-import java.awt.Color;
+package brushesAndSlider;
 
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsGroup;
@@ -9,7 +7,20 @@ import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.Path;
 
+import java.util.Iterator;
+import java.awt.Color;
+
+/**
+ * @author Daniel Aguilar
+ * Brush that sets fill color of any shapes surrounding a given radius from the click location
+ */
 public class Bucket implements Brush {
+
+    /**
+     * Fills all shapes within the brush radius of the given location
+     * with the current paint color
+     */
+    @Override
     public void apply(GraphicsGroup paintLayer, PaintSettingsView paintSettingsView, Point location) {
         double radius = paintSettingsView.getBrushOptions().getRadius();
         Color color = paintSettingsView.getBrushOptions().getColor();

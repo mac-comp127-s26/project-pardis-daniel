@@ -4,6 +4,7 @@ import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsObject;
 
 /**
+ * @author Pardis Roham
  * Creates circles in the mandala.
  */
 public class CircleMaker implements ShapeManager {

@@ -2,6 +2,9 @@ package mandalaGenerator;
 
 import edu.macalester.graphics.GraphicsObject;
 
+/**
+ * @author Pardis Roham
+ */
 public interface ShapeManager {
     /**
      * Creates a shape at the given position and angle.

@@ -1,4 +1,4 @@
-package BrushesAndSlider;
+package brushesAndSlider;
 import java.util.Iterator;
 import java.awt.Color;
 
@@ -9,7 +9,16 @@ import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.Path;
 
+/**
+ * @author Daniel Aguilar
+ * Brush that sets stroke color of any shapes surrounding a given radius from the click location
+ */
 public class StrokeBucket implements Brush {
+
+    /**
+     * Recolors the stroke of all shapes within the brush radius of a location clicked.
+     */
+    @Override
     public void apply(GraphicsGroup paintLayer, PaintSettingsView paintSettingsView, Point location) {
         double radius = paintSettingsView.getBrushOptions().getRadius();
         Color color = paintSettingsView.getBrushOptions().getColor();

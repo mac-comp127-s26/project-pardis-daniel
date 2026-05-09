@@ -4,6 +4,7 @@ import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Path;
 
 /**
+ * @author Pardis Roham
  * Creates circles in the mandala.
  */
 public class TriangleMaker implements ShapeManager {

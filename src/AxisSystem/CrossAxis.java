@@ -1,8 +1,13 @@
-package AxisSystem;
-import BrushesAndSlider.Brush;
-import BrushesAndSlider.PaintSettingsView;
+package axisSystem;
+import brushesAndSlider.Brush;
+import brushesAndSlider.PaintSettingsView;
 import edu.macalester.graphics.GraphicsGroup;
 
+/**
+ * @author Daniel Aguilar
+ * Main axis in Macandala. Reflects brush strokes across
+ * both the horizontal and vertical axes.
+ */
 public class CrossAxis extends AxisMode {
 
     @Override
@@ -17,7 +22,6 @@ public class CrossAxis extends AxisMode {
         applyBrushReflection(brush, settings, layer, centerX, centerY, dx, -dy);
         applyBrushReflection(brush, settings, layer, centerX, centerY, -dx, dy);
         applyBrushReflection(brush, settings, layer, centerX, centerY, -dx, -dy);
-        
     }
 
     @Override

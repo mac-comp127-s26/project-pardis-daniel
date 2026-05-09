@@ -1,10 +1,15 @@
-package BrushesAndSlider;
+package brushesAndSlider;
+
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsObject;
 
 import java.awt.Color;
 import java.awt.RadialGradientPaint;
 
+/**
+ * Utility class. Helps with brush rendering creating an ellipse with a color gradient. 
+ * Acknowledgements: Replicated from painter assignment materials for COMP127 course at Macalester College.
+ */
 public class PaintUtils {
     /**
      * Creates a circle that smoothly transitions to transparent at the edge. The fill is a radial

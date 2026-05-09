@@ -3,6 +3,7 @@ package mandalaGenerator;
 import java.util.Random;
 
 /**
+ * @author Pardis Roham
  * Configuration for the mandala generator.
  * Derives parameters (seed, symmetry, layers, radius) from the input number.
  */
@@ -15,7 +16,7 @@ public class MandalaSetup {
 
     private static final double MAX_RADIUS_RATIO = 0.45;
 
-    // --- Fields ---
+    // Fields
     private final int inputNumber;
     private final int canvasSize;
     private final long seed;

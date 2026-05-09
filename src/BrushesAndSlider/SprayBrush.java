@@ -1,4 +1,4 @@
-package BrushesAndSlider;
+package brushesAndSlider;
 
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;

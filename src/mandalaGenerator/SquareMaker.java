@@ -4,6 +4,10 @@ import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Path;
 import edu.macalester.graphics.Point;
 
+/**
+ * @author Pardis Roham
+ * Creates square for the mandala layers, each one aligned with the radial symmetry.
+ */
 public class SquareMaker implements ShapeManager {
     public GraphicsObject create(double centerX, double centerY, double size, double angle, double strokeWidth) {
 

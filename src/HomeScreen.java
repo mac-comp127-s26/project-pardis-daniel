@@ -1,14 +1,24 @@
-import AxisSystem.CrossAxis;
+import axisSystem.CrossAxis;
+
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Image;
 import edu.macalester.graphics.ui.Button;
 
-public class MainScreen {
+/**
+ * @author Daniel Aguilar
+ * Creates the home screen of Macandala
+ * Displays two buttons: one for the mandala maker, the other for the mandala generator
+ */
+public class HomeScreen {
     private final CanvasWindow window;
     private final GraphicsGroup group;
 
-    public MainScreen(CanvasWindow window) {
+    /**
+     * Creates and displays main screen elements
+     * @param window aplication window
+     */
+    public HomeScreen(CanvasWindow window) {
         this.window = window;
         this.group = new GraphicsGroup();
 
@@ -34,7 +44,7 @@ public class MainScreen {
         createButton.onClick(() -> {
             window.removeAll();
             MandalaCanvas canvas = new MandalaCanvas(window.getWidth(), window.getHeight(), new CrossAxis());
-            new MandalaMaker(window, canvas);
+            new DrawingScreen(window, canvas);
         });
 
         autoButton.onClick(() -> {
@@ -45,10 +55,16 @@ public class MainScreen {
         window.add(group);
     }
 
+    /**
+     * Adds the main screen graphic group to the window
+     */
     public void show() {
         window.add(group);
     }
 
+    /**
+     * Removes the graphics group from the window
+     */
     public void hide() {
         window.remove(group);
     }

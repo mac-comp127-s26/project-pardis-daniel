@@ -1,8 +1,13 @@
-package AxisSystem;
-import BrushesAndSlider.Brush;
-import BrushesAndSlider.PaintSettingsView;
+package axisSystem;
+import brushesAndSlider.Brush;
+import brushesAndSlider.PaintSettingsView;
 import edu.macalester.graphics.GraphicsGroup;
 
+/**
+ * @author Daniel Aguilar
+ * Axis mode that extendsCrossAxis with additional reflections
+ * at producing 12-way symmetry.
+ */
 public class DiagonalAxis extends CrossAxis {
 
     @Override

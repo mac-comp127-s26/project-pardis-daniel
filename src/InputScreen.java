@@ -193,7 +193,7 @@ public class InputScreen {
             currentBrush.apply(mandala, paintSettingsView, localPoint);
         });
 
-        Button clearFillButton = new Button("Clear All Fills");
+        Button clearFillButton = new Button("Clear All Shapes");
         clearFillButton.setPosition(900, 560);
         canvas.add(clearFillButton);
         clearFillButton.onClick(() -> {
